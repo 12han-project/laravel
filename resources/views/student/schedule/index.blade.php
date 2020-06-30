@@ -177,8 +177,8 @@
             };
 
             $.ajax({
-                url : "/student/schedule",
-                type : "post",
+                url : "/student/schedule/store",
+                type : "get",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 data : datum,
                 dataType:"json",
@@ -204,11 +204,14 @@
         }
 
         function get_schedule(){
+            const datum = {
+                "uid": "{{session('user_info')['number']}}",
+            };
             $.ajax({
                 url : "/student/schedule/get",
                 type : "get",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data : {},
+                data : datum,
                 dataType:"json",
                 success:function(data){
                     data.map(v => {
@@ -232,7 +235,6 @@
                     });
                 },
                 error:function(){
-                    alert('error1')
                 }
             });
         }
@@ -250,7 +252,7 @@
 
         function create_black_schedule(){
             var html = "";
-            for (let i = 1; i <= 8; i++){
+            for (let i = 1; i <= 6; i++){
                 html += `<tr class="fc-week">`;
                 html += `<td class="fc-day fc-sun fc-widget-content fc-past">
                                         <div style="min-height: 129px;">

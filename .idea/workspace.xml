@@ -5,9 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Student/ScheduleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Student/ScheduleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Schedules.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Schedules.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_15_085330_create_schedules.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_15_085330_create_schedules.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/student/schedule/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/student/schedule/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/student/task/tasks.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/student/task/tasks.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -244,7 +243,9 @@
       <workItem from="1592256987356" duration="33000" />
       <workItem from="1592257041594" duration="1292000" />
       <workItem from="1592685438524" duration="19314000" />
-      <workItem from="1592833791596" duration="8281000" />
+      <workItem from="1592833791596" duration="9579000" />
+      <workItem from="1593013107689" duration="1778000" />
+      <workItem from="1593455398374" duration="2873000" />
     </task>
     <servers />
   </component>
@@ -272,9 +273,10 @@
       <screen x="57" y="23" width="3783" height="2137" />
     </state>
     <state x="1555" y="123" width="1660" height="756" key="DirDiffDialog/57.23.3783.2137@57.23.3783.2137" timestamp="1592257248962" />
-    <state width="544" height="445" key="SwitcherDM" timestamp="1592850263841">
-      <screen x="57" y="23" width="3783" height="2137" />
+    <state width="500" height="400" key="SwitcherDM" timestamp="1593491751240">
+      <screen x="57" y="23" width="1863" height="1177" />
     </state>
+    <state width="500" height="400" key="SwitcherDM/57.23.1863.1177@57.23.1863.1177" timestamp="1593491751240" />
     <state width="544" height="445" key="SwitcherDM/57.23.3783.2137@57.23.3783.2137" timestamp="1592850263841" />
     <state x="2092" y="1124" key="VCS.ChangelistChooser" timestamp="1592686112210">
       <screen x="57" y="23" width="3783" height="2137" />
@@ -284,9 +286,10 @@
       <screen x="57" y="23" width="3783" height="2137" />
     </state>
     <state x="2292" y="238" key="ftp.server.browser/57.23.3783.2137@57.23.3783.2137" timestamp="1592257122387" />
-    <state x="2013" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1592850141069">
-      <screen x="57" y="23" width="3783" height="2137" />
+    <state x="1020" y="143" width="670" height="373" key="search.everywhere.popup" timestamp="1593491652332">
+      <screen x="57" y="23" width="1863" height="1177" />
     </state>
+    <state x="1020" y="143" width="670" height="373" key="search.everywhere.popup/57.23.1863.1177@57.23.1863.1177" timestamp="1593491652332" />
     <state x="2013" y="241" width="670" height="676" key="search.everywhere.popup/57.23.3783.2137@57.23.3783.2137" timestamp="1592850141069" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

@@ -94,13 +94,4 @@ class LoginController extends Controller
         $request->session()->flush();
         return redirect('/login');
     }
-
-    public function usernamerecovery_show(){
-        return view('usernamerecovery');
-    }
-
-    public function usernamerecovery(Request $request){
-
-    }
-
 }

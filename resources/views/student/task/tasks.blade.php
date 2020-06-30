@@ -110,6 +110,7 @@
         editor1.session.setMode("ace/mode/c_cpp");
         editor1.getSession().setUseWrapMode(true);
         editor1.setHighlightActiveLine(false);
+        // editor1.getReadOnly(true);
         //缩进大小
         editor1.getSession().setTabSize(4);
 
@@ -130,7 +131,7 @@
                 shell_code = editor.session.getLine(editor.selection.getCursor().row)
                 execute_c_code();
             }
-        })
+        });
 
         //課題ソースをAjaxで読み込む
         function code_info(e)

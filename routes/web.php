@@ -28,7 +28,7 @@ Route::group(['middleware' => 'Login_student'],function(){
     Route::get('/student/task/{id}', 'Student\TaskController@index');
     Route::get('/student/schedule', 'Student\ScheduleController@index');
     Route::get('/student/schedule/get', 'Student\ScheduleController@get');
-    Route::post('/student/schedule', 'Student\ScheduleController@store');
+    Route::get('/student/schedule/store', 'Student\ScheduleController@store');
     Route::delete('/student/schedule', 'Student\ScheduleController@destroy');
 });
 

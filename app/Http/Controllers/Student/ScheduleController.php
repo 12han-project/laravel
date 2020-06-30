@@ -19,11 +19,12 @@ class ScheduleController extends Controller
         return view('student/schedule/index');
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $datum = Schedules::where('student_id', 'AL18010')->first('schedules')['schedules'];
+        $student_id = $request->uid;
+        $datum = Schedules::where('student_id', $student_id)->first('schedules')['schedules'];
 
-//        $datum = json_decode($datum);
+        $datum = json_decode($datum);
 
         return $datum;
     }
@@ -54,15 +55,18 @@ class ScheduleController extends Controller
                 "time_limit" => (int)$request->time_limit,
         ];
 
-        $data = Schedules::where('student_id',$schedule['student_id'])->first('schedules')['schedules'];
-
-        if(!$data) $data = "{}";
-
-        $data = json_decode($data, true);
+        $result = Schedules::where('student_id',$schedule['student_id'])->first();
+        if($result){
+            $data = $result['schedules'];
+            $data = json_decode($data, true);
+        }else{
+            $data = [];
+        }
 
         array_push($data, $schedule);
 
-        $result = Schedules::where('student_id',$schedule['student_id'])->first();
+        $data = json_encode($data);
+
         if($result){
             $result = Schedules::where('student_id',$schedule['student_id'])->update(['schedules' => $data]);
         }else{
