@@ -21,7 +21,7 @@
                     <div class="logopanel" style="margin-bottom: 15px;text-align: center">
                         <h1><span>[</span> 12班 <span>]</span></h1>
                     </div><!-- logopanel -->
-                    <p class="mt5 mb20">学生番号とパスワードを入れてログインボタンを押してください．<br />初めての方は，Googleでログインしてください．</p>
+                    <p class="mt5 mb20">芝浦工業大学のアカウントでログインしてください．</p>
                     @if ($errors->any())
                         <div class="alert alert-danger" style="margin-bottom: 0;margin-top: 15px">
                             <ul>
@@ -30,11 +30,15 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <br>
                     @endif
+
                     <input type="text" name="username" class="form-control uname" placeholder="学生番号"/>
                     <input type="password" name="password" class="form-control pword" placeholder="パスワード" />
                     <button class="btn btn-success btn-block">ログイン</button>
-                    <div class="text-center"><h5>or</h5></div>
+{{--                    <div class="text-center"><h5>or</h5></div>--}}
+
+
                     <a href="/login/google">
                         <img src="/images/btn_google_signin_dark_normal_web.png" width="100%" alt="">
                     </a>

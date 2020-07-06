@@ -10,7 +10,7 @@
                     <a href="" class="panel-close">&times;</a>
                     <a href="" class="minimize">&minus;</a>
                 </div><!-- panel-btns -->
-                <h3 class="panel-title">Data Tables</h3>
+                <h3 class="panel-title">課題リスト</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -93,7 +93,7 @@
                     <div class="form-group confirm_box" style="width:90%;margin:0 auto">
                         <a class="btn btn-primary confirm_box_ok" data-toggle="modal" style="width: 130px;margin: 0 0 15px 20px;" data-target="#confirm_box" onclick="confirm_popup(this)">保存</a>
                         <a class="btn btn-success-alt btn" onclick="execute_c_code(this)" style="width: 130px;margin: 0 0 15px 20px;">実行</a>
-                        <a href="#" target="_blank" class="btn btn-success-alt download" style="width: 130px;margin: 0 0 15px 20px;">ダウンロード</a>
+                        <a href="/student/download?file" target="_blank" class="btn btn-success-alt download" style="width: 130px;margin: 0 0 15px 20px;">ダウンロード</a>
                         <a class="btn btn-danger confirm_box_no" data-dismiss="modal" class="close" style="width: 130px;margin: 0 0 15px 20px;">閉じる</a>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                     $('.editor .comment').val(data['comment']);
                     $('.editor .title>h4').html(upload_task_name);
                     file_id = data['file_id'];
-                    $('.editor a.download').attr('href','/student/ajax/task/download/'+file_id);
+                    $('.editor a.download').attr('href','/student/task/download/'+file_id);
 
                     // チェック済みの課題は保存ボタンはクリックできない
                     if(data['status'] == 2){

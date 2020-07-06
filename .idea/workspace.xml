@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="243d632e-c2bb-4d49-a1a8-3058d4201fbc" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Student/ScheduleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Student/ScheduleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/student/schedule/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/student/schedule/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Student/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Student/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Teacher/ClassController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Teacher/ClassController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layout/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/student/leftpanel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/student/leftpanel.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/student/task/tasks.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/student/task/tasks.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -245,7 +248,8 @@
       <workItem from="1592685438524" duration="19314000" />
       <workItem from="1592833791596" duration="9579000" />
       <workItem from="1593013107689" duration="1778000" />
-      <workItem from="1593455398374" duration="2873000" />
+      <workItem from="1593455398374" duration="8325000" />
+      <workItem from="1594037037152" duration="1226000" />
     </task>
     <servers />
   </component>
@@ -273,11 +277,11 @@
       <screen x="57" y="23" width="3783" height="2137" />
     </state>
     <state x="1555" y="123" width="1660" height="756" key="DirDiffDialog/57.23.3783.2137@57.23.3783.2137" timestamp="1592257248962" />
-    <state width="500" height="400" key="SwitcherDM" timestamp="1593491751240">
-      <screen x="57" y="23" width="1863" height="1177" />
+    <state width="544" height="445" key="SwitcherDM" timestamp="1594051247062">
+      <screen x="57" y="23" width="3783" height="2137" />
     </state>
-    <state width="500" height="400" key="SwitcherDM/57.23.1863.1177@57.23.1863.1177" timestamp="1593491751240" />
-    <state width="544" height="445" key="SwitcherDM/57.23.3783.2137@57.23.3783.2137" timestamp="1592850263841" />
+    <state width="500" height="400" key="SwitcherDM/57.23.1863.1177@57.23.1863.1177" timestamp="1593497580069" />
+    <state width="544" height="445" key="SwitcherDM/57.23.3783.2137@57.23.3783.2137" timestamp="1594051247062" />
     <state x="2092" y="1124" key="VCS.ChangelistChooser" timestamp="1592686112210">
       <screen x="57" y="23" width="3783" height="2137" />
     </state>
@@ -286,10 +290,10 @@
       <screen x="57" y="23" width="3783" height="2137" />
     </state>
     <state x="2292" y="238" key="ftp.server.browser/57.23.3783.2137@57.23.3783.2137" timestamp="1592257122387" />
-    <state x="1020" y="143" width="670" height="373" key="search.everywhere.popup" timestamp="1593491652332">
+    <state x="1020" y="143" width="670" height="373" key="search.everywhere.popup" timestamp="1593494892974">
       <screen x="57" y="23" width="1863" height="1177" />
     </state>
-    <state x="1020" y="143" width="670" height="373" key="search.everywhere.popup/57.23.1863.1177@57.23.1863.1177" timestamp="1593491652332" />
+    <state x="1020" y="143" width="670" height="373" key="search.everywhere.popup/57.23.1863.1177@57.23.1863.1177" timestamp="1593494892974" />
     <state x="2013" y="241" width="670" height="676" key="search.everywhere.popup/57.23.3783.2137@57.23.3783.2137" timestamp="1592850141069" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

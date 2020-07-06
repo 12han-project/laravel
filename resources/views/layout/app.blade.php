@@ -6,7 +6,7 @@
     <meta name="author" content="BluewolfAli">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="/images/favicon.gif" type="image/png">
-    <title>Isao Sasano</title>
+    <title>12班プロジェクト</title>
     <link href="/css/bootstrap-editable.css" rel="stylesheet">
     <link href="/css/style.default.css" rel="stylesheet">
     <link href="/css/jquery.gritter.css" rel="stylesheet">
@@ -52,14 +52,7 @@
         </div><!-- headerbar -->
 
         <div class="pageheader">
-            <h2><i class="fa fa-home"></i> Dashboard <span>Subtitle goes here...</span></h2>
-            <div class="breadcrumb-wrapper">
-                <span class="label">You are here:</span>
-                <ol class="breadcrumb">
-                    <li><a href="index.html">Bracket</a></li>
-                    <li class="active">Dashboard</li>
-                </ol>
-            </div>
+            <h2><i class="fa fa-home"></i> Dashboard </h2>
         </div>
         @yield("content")
 
@@ -77,13 +70,26 @@
 <script src="/js/jquery.gritter.min.js"></script>
 
 <script>
-            {{-- Banner --}}
     var url = window.location.pathname.split('/');
-    var info = url[2] == null ? 'index' : url[2];
-    $('li[name='+info+']').addClass('active');
-    if(url[3] != null){
-        $('li[name='+info+']>ul').css('display','block');
-        $('li[name='+info+']>ul>li[name='+url[3]+']').addClass('active');
+    if(url[1] == 'student'){
+        if(url[2] == 'schedule'){
+            $('.schedule').addClass('active');
+            $('.pageheader>h2').html('スケジュール');
+        }
+
+        if(url[2] == 'class'){
+            $('.class[name=class-'+url[3]+']').addClass('active');
+            $('.class[name=class-'+url[3]+']>ul').css('display','block');
+            calss_name = $('.class[name=class-'+url[3]+']>a span').html();
+            $('.pageheader>h2').html(calss_name);
+            if(url[4] == 'tasks'){
+                $('.class[name=class-'+url[3]+']>ul>li[name=task_list]').addClass('active');
+            }
+            if(url[4] == 'task_upload'){
+                $('.class[name=class-'+url[3]+']>ul>li[name=upload]').addClass('active');
+            }
+
+        }
     }
 
     function messages(type,title,text,time = 2000){

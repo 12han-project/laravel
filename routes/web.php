@@ -30,6 +30,7 @@ Route::group(['middleware' => 'Login_student'],function(){
     Route::get('/student/schedule/get', 'Student\ScheduleController@get');
     Route::get('/student/schedule/store', 'Student\ScheduleController@store');
     Route::delete('/student/schedule', 'Student\ScheduleController@destroy');
+    Route::get('/student/task/download/{file_id}', 'Student\TaskController@download');
 });
 
 

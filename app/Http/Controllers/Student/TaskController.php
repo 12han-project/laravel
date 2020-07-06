@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Upload_files;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -18,7 +19,6 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         /**
-         * 还没写有没有权限打开文件！！！
          */
         $upload_file = Upload_files::where('id',$request->id)->first();
         $upload_file['task_code'] = $this->open_file($upload_file['task_file']);
@@ -100,48 +100,12 @@ class TaskController extends Controller
         return view('student/task/tasks', $datum);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function download(Request $request)
     {
-        //
+        $upload_file = Upload_files::where('id',$request->file_id)->first();
+        $task_address = '/public/'.$upload_file['task_file'];
+        $task_name = $upload_file['task_name'].'.c';
+        return Storage::download($task_address, $task_name);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
