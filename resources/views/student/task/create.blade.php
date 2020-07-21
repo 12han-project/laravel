@@ -44,8 +44,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">課題種類</label>
                         <div class="col-sm-6">
-                            <div class="radio"><label><input type="radio" name="type" value="c"> C</label></div>
-                            <div class="radio"><label><input type="radio" name="type" value="java"> Java</label></div>
+                            <div class="radio"><label><input type="radio" name="type" value="c" checked> C</label></div>
                         </div>
                     </div>
 
@@ -57,7 +56,7 @@
                                  name="file"
                                  data-num='1'
                                  id='case1'
-                                 data-type="java,c,png"
+                                 data-type="c"
                             ></div>
                         </div>
                     </div>

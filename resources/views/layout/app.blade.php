@@ -52,7 +52,7 @@
         </div><!-- headerbar -->
 
         <div class="pageheader">
-            <h2><i class="fa fa-home"></i> Dashboard </h2>
+            <h2><i class="fa fa-home"></i> スケジュール </h2>
         </div>
         @yield("content")
 

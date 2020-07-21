@@ -33,9 +33,9 @@
                         <br>
                     @endif
 
-                    <input type="text" name="username" class="form-control uname" placeholder="学生番号"/>
-                    <input type="password" name="password" class="form-control pword" placeholder="パスワード" />
-                    <button class="btn btn-success btn-block">ログイン</button>
+{{--                    <input type="text" name="username" class="form-control uname" placeholder="学生番号"/>--}}
+{{--                    <input type="password" name="password" class="form-control pword" placeholder="パスワード" />--}}
+{{--                    <button class="btn btn-success btn-block">ログイン</button>--}}
 {{--                    <div class="text-center"><h5>or</h5></div>--}}
 
 

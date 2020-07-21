@@ -1,6 +1,6 @@
 @extends("layout.app")
 @section("leftpanel")
-    @include("student.leftpanel")
+    @include("teacher.leftpanel")
 @endsection("leftpanel")
 @section("content")
     <div class="contentpanel">
@@ -61,7 +61,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close close-model" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">確認操作</h4>
                 </div>
                 <div class="modal-footer">
@@ -77,7 +77,7 @@
         <div class="modal-dialog modal-photo-viewer">
             <div class="modal-content">
                 <div class="modal-header title">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                    <button aria-hidden="true" data-dismiss="modal" class="close close-model" type="button">&times;</button>
                     <h4 class="modal-title">title</h4>
                 </div>
                 <div class="modal-body" style="padding:0;">
@@ -88,9 +88,10 @@
                     <div id="editor2" task_id="0" style="height: 400px;">user@ubuntu:./a.out</div>
                     <br>
                     <div class="form-group confirm_box" style="width:90%;margin:0 auto">
-                        <a class="btn btn-primary "  style="width: 130px;margin: 0 0 15px 20px;" onclick="save_task(this)">保存</a>
-                        <a class="btn btn-success-alt btn" onclick="execute_c_code(1)" style="width: 130px;margin: 0 0 15px 20px;">実行</a>
-                        <a href="/student/download?file" target="_blank" class="btn btn-success-alt download" style="width: 130px;margin: 0 0 15px 20px;">ダウンロード</a>
+                        <a class="btn btn-primary confirm_box confirm_box" onclick="edit_status(this,2)" task_id="0" style="width: 78px;margin: 0 0 15px 20px;">正解</a>
+                        <a class="btn btn-danger confirm_box confirm_box"  onclick="edit_status(this,3)" task_id="0" style="width: 78px;margin: 0 0 15px 20px;">間違い</a>
+                        <a class="btn btn-success-alt btn" onclick="execute_c_code(1)" style="width: 78px;margin: 0 0 15px 20px;">実行</a>
+                        <a href="/teacher/download?file" target="_blank" class="btn btn-success-alt download" style="width: 130px;margin: 0 0 15px 20px;">ダウンロード</a>
                         <a class="btn btn-danger confirm_box_no" data-dismiss="modal" class="close" style="width: 130px;margin: 0 0 15px 20px;">閉じる</a>
                     </div>
                 </div>
@@ -107,7 +108,7 @@
         editor1.session.setMode("ace/mode/c_cpp");
         editor1.getSession().setUseWrapMode(true);
         editor1.setHighlightActiveLine(false);
-        // editor1.getReadOnly(true);
+        editor1.getReadOnly(true);
         //缩进大小
         editor1.getSession().setTabSize(4);
 
@@ -133,7 +134,7 @@
         }
         function delete_task(){
             $.ajax({
-                url : '/student/task/delete/'+delete_id,
+                url : '/teacher/task/delete/'+delete_id,
                 data : {},
                 dataType : 'html',
                 type : 'get',
@@ -176,27 +177,23 @@
             }
         })
 
-        // 直したソースをAJAXで保存する
-        function save_task(e){
-            var task_id = $('#editor2').attr('task_id');
+        function edit_status(e, status)
+        {
+            $task_id = $(e).attr('task_id');
             $.ajax({
-                url : '/student/task/save',
-                data : {task_id : task_id,task_content:editor1.getValue()},
+                url : '/teacher/task/edit/'+$task_id,
+                data : {'status': status},
                 dataType : 'html',
                 type : 'get',
                 success : function(data){
-                    if(data){
-                        messages('success','成功','課題は保存されました。',2000)
-                    }else{
-                        messages('danger','エラー','課題の保存は失敗しました。',3000)
-                    }
+                    messages('success','成功','ok',2000);
+                    $('.close-model').click();
+                    location.reload();
                 },
-                error : function (){
-                    messages('danger','エラー','課題の保存は失敗しました。No.513',3000)
+                error : function(date){
+                    alert('error')
                 }
             });
-            $('.close-model-2').click()
-            // $('.editor').css('z-index','1050')
         }
 
         //課題ソースをAjaxで読み込む
@@ -205,7 +202,7 @@
             var upload_task_id = $(e).parent().siblings('input.upload_task_id').val();
             var upload_task_name = $(e).parent().siblings('td.task_number').html();
             $.ajax({
-                url : '/student/task/'+upload_task_id,
+                url : '/teacher/task/'+upload_task_id,
                 data : {'_token':'{{csrf_token()}}'},
                 dataType : 'html',
                 type : 'get',
@@ -218,7 +215,8 @@
                     $('.editor .comment').val(data['comment']);
                     $('.editor .title>h4').html(upload_task_name);
                     file_id = data['file_id'];
-                    $('.editor a.download').attr('href','/student/task/download/'+file_id);
+                    $('.editor a.download').attr('href','/teacher/task/download/'+file_id);
+                    $('.editor a.confirm_box').attr('task_id', upload_task_id);
                     $('#editor2').attr('task_id', upload_task_id);
 
                     // チェック済みの課題は保存ボタンはクリックできない

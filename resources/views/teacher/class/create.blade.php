@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">授業時間</label>
+                        <label class="col-sm-3 control-label">提出期間</label>
                         <div class="col-sm-6">
                             <div class="input-group">
                                 <input type="text" name="datetime" class="form-control datetimes" placeholder="yyyy/mm/dd hh/mm">

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClassPost extends FormRequest
+class TaskPost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,18 @@ class ClassPost extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'bail|required|min:1|max:25',
-//            'student' => 'bail|min:5',
+                'task_name' => 'bail|required|min:1|max:25',
+                'upload' => 'bail|required',
         ];
     }
 
     public function messages()
     {
         return [
-                'name.required' => '授業名に一つ以上の文字を入れてください.',
-                'name.min' => '授業名に一つ以上の文字を入れてください.',
-                'name.max' => '授業名に25文字以内にしてください.',
-                'student.required' => '学生番号を入力してください．',
+                'task_name.required' => '課題名を入れてください.',
+                'task_name.min' => '課題名に一つ以上の文字を入れてください.',
+                'task_name.max' => '課題名を25文字以内にしてください.',
+                'upload.required' => 'ファイルを選択してください.',
         ];
     }
 }

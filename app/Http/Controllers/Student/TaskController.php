@@ -8,6 +8,7 @@ use App\Upload_files;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests;
 
 class TaskController extends Controller
 {
@@ -63,7 +64,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests \TaskPost $request)
     {
         $datum = [
                 'class_id' => $request->class_id,
@@ -89,10 +90,6 @@ class TaskController extends Controller
 
         $tasks = Upload_files::where('user_name', session('user_info')['name'])->get();
 
-//        foreach ($tasks as $k => $v){
-//            $tasks[$k]['']
-//        }
-
         $datum = [
             'tasks' => $tasks,
         ];
@@ -106,6 +103,62 @@ class TaskController extends Controller
         $task_address = '/public/'.$upload_file['task_file'];
         $task_name = $upload_file['task_name'].'.c';
         return Storage::download($task_address, $task_name);
+    }
+
+    public function execute_code(Request $request)
+    {
+        $argv = '';
+        foreach (explode(' ', $request->argv) as $k => $v)
+            if($k != 0)$argv .= ' '.$v;
+//        dd($argv);
+        $task = Upload_files::where('id',$request->task_id)->first();
+        $file_address = './public/'.$task['task_file'];
+        $file_name = explode('/', $task['task_file'])[3];
+        $compiler_file = './public/compiler/'.$file_name.'.out';
+
+        exec('gcc -o '.$compiler_file.' '.$file_address.' 2>&1', $output, $return_value);
+
+        //error massage
+        if($return_value != 0){
+            $error_message = '';
+            foreach ($output as $k =>$v){
+                if(explode('/', $v)[0] == '.'){
+                    $a = explode(':', $v);
+                    $a[0] = 'file.c';
+                    $error_message .= implode(':', $a)."\n";
+                }else{
+                    $error_message .= $v."\n";
+                }
+            }
+            return $error_message;
+        }
+
+
+        $result = exec($compiler_file.$argv);
+        return $result;
+
+    }
+
+    public function save(Request $request)
+    {
+        $task_id = $request->task_id;
+        $task_content = $request->task_content;
+        $file_address = './public/'.Upload_files::where('id', $task_id)->first()['task_file'];
+
+        $my_file = fopen($file_address, "w");
+        $result = fwrite($my_file, $task_content);
+        return $result;
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->file_id;
+        $result = Upload_files::where('id',$id)->delete();
+        if($result){
+            return back()->with('info','ok');
+        }else{
+            return back()->withErrors(['taskのdeleteは失敗されました']);
+        }
     }
 
 }

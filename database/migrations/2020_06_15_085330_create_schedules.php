@@ -14,7 +14,7 @@ class CreateSchedules extends Migration
     public function up()
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->string("student_id")->unique();
+            $table->string("student_id", 25)->unique();
             $table->longText("schedules");
             $table->timestamps();
             $table->softDeletes();

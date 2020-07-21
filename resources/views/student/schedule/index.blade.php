@@ -57,7 +57,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
-                    <h4 class="modal-title">Create New Class</h4>
+                    <h4 class="modal-title">更新する</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal form-bordered">
@@ -190,10 +190,18 @@
                         get_schedule();
                         $('form input').removeAttr('checked');
                         $('form input[type=text]').attr('value','');
+                        messages('success','成功','成功しました．',2000);
                     }
                 },
-                error:function(){
-                    alert('error')
+                error:function(data){
+                    var errors = '';
+                    data = JSON.parse(data.responseText);
+                    data = data.errors;
+                    console.log(data)
+                    Object.keys(data).forEach(function (k) {
+                        errors += '* '+data[k][0]+'<br />';
+                    });
+                    messages('error','失敗',　errors,2000);
                 }
             });
         }
