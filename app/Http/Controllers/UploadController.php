@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * ファイルを保存コントローラ
- * @author
+ * @author　　　アリ
  * @version     v1.2
  * @date        2020-06-28
  */

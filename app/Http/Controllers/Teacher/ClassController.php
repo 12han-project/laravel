@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * 授業コントローラー
- * @author
+ * @author      伊藤 遼
  * @version     v2.2
  * @date        2020-07-03
  */

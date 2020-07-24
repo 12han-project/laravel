@@ -10,7 +10,7 @@ use App\Http\Requests;
 
 /**
  * スケジュールコントローラー
- * @author
+ * @author      ウン ション フォン，陸路
  * @version     v2.3
  * @date        2020-07-03
  */

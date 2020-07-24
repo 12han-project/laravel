@@ -12,7 +12,7 @@ use App\Http\Requests;
 
 /**
  * 課題コントローラー
- * @author
+ * @author      大塚 嵩柾，阿部 広河
  * @version     v2.4
  * @date        2020-06-21
  */
