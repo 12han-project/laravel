@@ -10,20 +10,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 
+/**
+ * 課題コントローラー
+ * @author
+ * @version     v2.4
+ * @date        2020-06-21
+ */
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * ファイルの中身を読み込んで渡す．
      *
-     * @return \Illuminate\Http\Response
+     * @param   Request   $request
+     * @return  json      $data
      */
     public function index(Request $request)
     {
-        /**
-         */
         $upload_file = Upload_files::where('id',$request->id)->first();
         $upload_file['task_code'] = $this->open_file($upload_file['task_file']);
-//dd($upload_file['task_code']);
+
         $data = array(
                 'file_id' => $upload_file['id'],
                 'code' => $upload_file['task_code'],
@@ -32,6 +37,12 @@ class TaskController extends Controller
         return json_encode($data);
     }
 
+    /**
+     * ファイルの中身を読み込んで渡す．
+     *
+     * @param $task_file
+     * @return string $code
+     */
     public function open_file($task_file)
     {
         $code = '';
@@ -43,8 +54,9 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 課題登録ページを表示
      *
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -59,13 +71,25 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 課題をチェックして登録する．
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests \TaskPost $request)
+    public function store(Request $request)
     {
+        $this->validate($request,
+            [
+                    'task_name' => 'bail|required|min:1|max:25',
+                    'upload' => 'bail|required',
+            ],[
+                    'task_name.required' => '課題名を入れてください.',
+                    'task_name.min' => '課題名に一つ以上の文字を入れてください.',
+                    'task_name.max' => '課題名を25文字以内にしてください.',
+                    'upload.required' => 'ファイルを選択してください.',
+            ]
+        );
+
         $datum = [
                 'class_id' => $request->class_id,
                 'user_name' => session('user_info')['name'],
@@ -84,6 +108,12 @@ class TaskController extends Controller
         return redirect('/student/class/'.$request->class_id.'/tasks');
     }
 
+    /**
+     * 課題リストを表示
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function task_list(Request $request)
     {
         $class_id = $request->class_id;
@@ -97,6 +127,12 @@ class TaskController extends Controller
         return view('student/task/tasks', $datum);
     }
 
+    /**
+     * 課題をダウンロードする
+     *
+     * @param Request $request file_id
+     * @return String URL
+     */
     public function download(Request $request)
     {
         $upload_file = Upload_files::where('id',$request->file_id)->first();
@@ -105,6 +141,12 @@ class TaskController extends Controller
         return Storage::download($task_address, $task_name);
     }
 
+    /**
+     * 課題ファイルをコンパイルして実行する．実行結果を返す．
+     *
+     * @param Request $request
+     * @return string　$result 実行結果
+     */
     public function execute_code(Request $request)
     {
         $argv = '';
@@ -139,6 +181,12 @@ class TaskController extends Controller
 
     }
 
+    /**
+     * 編集した課題を保存する
+     *
+     * @param Request $request
+     * @return boolean $result
+     */
     public function save(Request $request)
     {
         $task_id = $request->task_id;
@@ -150,6 +198,12 @@ class TaskController extends Controller
         return $result;
     }
 
+    /**
+     * 課題を取消
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete(Request $request)
     {
         $id = $request->file_id;

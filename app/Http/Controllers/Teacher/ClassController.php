@@ -8,18 +8,27 @@ use App\Http\Controllers\Controller;
 use App\Upload_files;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * 授業コントローラー
+ * @author
+ * @version     v2.2
+ * @date        2020-07-03
+ */
 class ClassController extends Controller
 {
+    /**
+     * ファイルの中身を読み込んで渡す．
+     *
+     * @param   Request   $request
+     * @return  json     $data
+     */
     public function index(Request $request)
     {
-        /**
-         */
         $upload_file = Upload_files::where('id',$request->id)->first();
         $upload_file['task_code'] = $this->open_file($upload_file['task_file']);
-//dd($upload_file['task_code']);
+
         $data = array(
                 'file_id' => $upload_file['id'],
                 'code' => $upload_file['task_code'],
@@ -28,6 +37,12 @@ class ClassController extends Controller
         return json_encode($data);
     }
 
+    /**
+     * ファイルの中身を読み込んで渡す．
+     *
+     * @param $task_file
+     * @return string
+     */
     public function open_file($task_file)
     {
         $code = '';
@@ -38,7 +53,7 @@ class ClassController extends Controller
         return $code;
     }
     /**
-     * Show the form for creating a new resource.
+     * 授業登録ページを表示．
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,13 +63,24 @@ class ClassController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 授業登録．
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests \ClassPost $request)
+    public function store(Request $request)
     {
+        $this->validate($request,
+            [
+                    'name' => 'bail|required|min:1|max:25',
+            ],[
+                    'name.required' => '授業名に一つ以上の文字を入れてください.',
+                    'name.min' => '授業名に一つ以上の文字を入れてください.',
+                    'name.max' => '授業名に25文字以内にしてください.',
+                    'student.required' => '学生番号を入力してください．',
+            ]
+        );
+
         foreach (explode(',', $request->students) as $k){
             if(!preg_match('/(([A-Z]|[a-z]){2}[0-9]{5})/', $k))
                 return back()->withErrors(['学生番号を英字2文字+数字5文字で入れてください.']);
@@ -83,6 +109,12 @@ class ClassController extends Controller
         return redirect('/teacher/class');
     }
 
+    /**
+     * 授業を登録している学生リストを表示．
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function students(Request $request)
     {
         $class_id = $request->class_id;
@@ -95,6 +127,12 @@ class ClassController extends Controller
         return view('teacher/class/students', ['students' => $students]);
     }
 
+    /**
+     * 授業にアップロードされた課題を表示．
+     *
+     * @param Request $request　Class_id
+     * @return \Illuminate\Http\Response
+     */
     public function tasks(Request $request)
     {
         $class_id = $request->class_id;
@@ -103,6 +141,12 @@ class ClassController extends Controller
         return view('teacher/class/tasks', ['tasks' => $tasks]);
     }
 
+    /**
+     * 課題を取消
+     *
+     * @param Request $request　file_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete(Request $request)
     {
         $id = $request->file_id;
@@ -114,6 +158,12 @@ class ClassController extends Controller
         }
     }
 
+    /**
+     * 課題ファイルをダウンロードする．
+     *
+     * @param Request $request
+     * @return String URL
+     */
     public function download(Request $request)
     {
         $upload_file = Upload_files::where('id',$request->file_id)->first();
@@ -122,6 +172,12 @@ class ClassController extends Controller
         return Storage::download($task_address, $task_name);
     }
 
+    /**
+     * 課題ファイルをコンパイルして実行する．実行結果を返す．
+     *
+     * @param Request $request
+     * @return string　$result 実行結果
+     */
     public function execute_code(Request $request)
     {
         $argv = '';
@@ -156,13 +212,17 @@ class ClassController extends Controller
 
     }
 
+    /**
+     * 課題の状態を変更する．
+     *
+     * @param Request $request
+     */
     public function edit(Request $request)
     {
         $status = $request->status;
         $task_id = $request->id;
 
         $result = Upload_files::where('id', $task_id)->update(["status"=>$status]);
-
     }
 
 }

@@ -8,10 +8,16 @@ use App\Schedules;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
+/**
+ * スケジュールコントローラー
+ * @author
+ * @version     v2.3
+ * @date        2020-07-03
+ */
 class ScheduleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * スケジュールページを表示
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,6 +26,12 @@ class ScheduleController extends Controller
         return view('student/schedule/index');
     }
 
+    /**
+     * ユーザーのスケジュール情報を表示
+     *
+     * @param Request $request
+     * @return $datum
+     */
     public function get(Request $request)
     {
         $student_id = $request->uid;
@@ -31,13 +43,31 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * スケジュールを保存
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests \SchedulePost $request)
+    public function store(Request $request)
     {
+        $this->validate($request,
+            [
+                    'title' => 'bail|required|min:1|max:25',
+                    'url' => 'bail|required|url|max:255',
+                    'week' => 'bail|required',
+                    'time_limit' => 'bail|required'
+            ],[
+                    'title.required' => '授業名を入れてください',
+                    'title.min' => '授業名に一つ以上の文字を入れてください',
+                    'title.max' => '授業名に２５文字以内にしてください',
+                    'url.required' => 'URLアドレスを入れてください',
+                    'url.url' => '正しいURLアドレスを入れてください',
+                    'url.max' => 'URLアドレスを２５５文字以内にしてください',
+                    'week.required' => '曜日を選択してください',
+                    'time_limit.required' => '時限を選択してください',
+            ]
+        );
+
         $schedule = [
                 "student_id" => $request->uid,
                 "title" => $request->title,
@@ -71,22 +101,10 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * スケジュールを取消
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return boolean  $result
      */
     public function destroy(Request $request)
     {

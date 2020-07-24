@@ -13,7 +13,7 @@ class ClassPost extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,7 +24,7 @@ class ClassPost extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'bail|required|min:1|max:25',
+//            'name' => 'bail|required|min:1|max:25',
 //            'student' => 'bail|min:5',
         ];
     }
@@ -32,10 +32,10 @@ class ClassPost extends FormRequest
     public function messages()
     {
         return [
-                'name.required' => '授業名に一つ以上の文字を入れてください.',
-                'name.min' => '授業名に一つ以上の文字を入れてください.',
-                'name.max' => '授業名に25文字以内にしてください.',
-                'student.required' => '学生番号を入力してください．',
+//                'name.required' => '授業名に一つ以上の文字を入れてください.',
+//                'name.min' => '授業名に一つ以上の文字を入れてください.',
+//                'name.max' => '授業名に25文字以内にしてください.',
+//                'student.required' => '学生番号を入力してください．',
         ];
     }
 }

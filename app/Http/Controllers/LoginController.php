@@ -8,9 +8,20 @@ use App\Users;
 use Illuminate\Support\Facades\Hash;
 use Socialite;
 
+/**
+ * ログインコントローラー
+ * @author
+ * @version     v2.0
+ * @date        2020-07-03
+ */
 class LoginController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * ログイン状態を確認して，ログイン済みならログインユーザーのタイプのホームページへ移す．ログインしなかったらログインページへ移す．
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         if(!empty(session('user_info'))){
             if(session('user_info')['type'] == 1) return redirect('/teacher');
@@ -20,12 +31,22 @@ class LoginController extends Controller
         return view('login');
     }
 
+    /**
+     * Googleのログインページへ移す
+     *
+     * @return $mixed　URLアドレス
+     */
     public function redirectToGoogle()
     {
         // Google へのリダイレクト
         return Socialite::driver('google')->redirect();
     }
 
+    /**
+     * ログインユーザーのタイプに対してホームページへ移す
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function handleGoogleCallback()
     {
         $gUser = Socialite::driver('google')->stateless()->user();
@@ -64,8 +85,25 @@ class LoginController extends Controller
         if($user_type == 2) return redirect('/student');
     }
 
-    public function login(Requests \LoginPost $request)
+    /**
+     * ユーザー情報を確認し，Googleから戻した情報をデータベースに保存し，ホームページへ移す．
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
     {
+        $this->validate($request,
+            [
+                    'username' => 'bail|required|alpha_num',
+                    'password' => 'bail|required',
+            ],[
+                    'username.required' => 'ユーザー名の間違い',
+                    'username.alpha_num' => 'パスワードの間違い',
+                    'password.required' => 'パスワードを入力してください',
+            ]
+        );
+
         $user = Users::where('number',strtoupper(trim($request->username)))->first();
 
         if(empty($user)){
@@ -90,6 +128,12 @@ class LoginController extends Controller
         if($user['type'] == 2) return redirect('/student');
     }
 
+    /**
+     * ユーザーをログアウト
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function logout(Request $request){
         $request->session()->flush();
         return redirect('/login');

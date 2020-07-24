@@ -13,7 +13,7 @@ class TaskPost extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +24,8 @@ class TaskPost extends FormRequest
     public function rules()
     {
         return [
-                'task_name' => 'bail|required|min:1|max:25',
-                'upload' => 'bail|required',
+
+
         ];
     }
 
